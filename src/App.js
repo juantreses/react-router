@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Layout from "./components/Layout";
+import Home from "./components/Home";
+
+import Movies from "./Movies";
+import Movie from "./components/movies/Movie";
+import StarWars from "./StarWars";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Layout>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/movies">
+              <Movies />
+            </Route>
+            <Route
+              path="/movie/:id/:title"
+              render={(props) => <Movie {...props} />}
+            />
+            <Route path="/star-wars" component={StarWars} />
+          </Switch>
+        </Layout>
+      </div>
+    </Router>
   );
 }
 
